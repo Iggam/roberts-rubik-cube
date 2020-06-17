@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Rubik3x3Model/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Rubik3x3Model from '@/components/Rubik3x3Model.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Rubik3x3Model
   }
 }
 </script>
@@ -22,7 +21,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background-color: #c4c3d4;
   color: #2c3e50;
-  margin-top: 60px;
+  height: 100vh;
 }
 </style>
