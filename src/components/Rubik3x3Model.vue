@@ -108,6 +108,7 @@
 				myCamera: null,
 				myEntity: null,
 				myAnimation: null,
+				rotating: false,
 				boxOptions: {
 					faceColors: null
 				},
@@ -202,20 +203,24 @@
 				let rotationQuaternion = this.BABYLON.Quaternion.RotationAxis(axis, rotation);
 				let end = rotationQuaternion.multiply(mesh.rotationQuaternion);
 
-				this.BABYLON.Animation.CreateAndStartAnimation("rotation", mesh, "rotationQuaternion", 90, 30, start, end, this.BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE)
+				let anim = this.BABYLON.Animation.CreateAndStartAnimation("rotation", mesh, "rotationQuaternion", 120, 30, start, end, this.BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE)
+				anim.onAnimationEnd = () => {this.rotating = false}
 			},
 
 			rotate(axisName, rotation, side) {
-				if (side == 'plus') {
-					for (let key in this.cubes) {
-						if (this.cubes[key].model.absolutePosition[axisName] > 0.5) {
-							this.rotationFunc(axisName, this.cubes[key].transform_node, rotation)
+				if(!this.rotating) {
+					this.rotating = true
+					if (side == 'plus') {
+						for (let key in this.cubes) {
+							if (this.cubes[key].model.absolutePosition[axisName] > 0.5) {
+								this.rotationFunc(axisName, this.cubes[key].transform_node, rotation)
+							}
 						}
-					}
-				} else if (side == 'min') {
-					for (let key in this.cubes) {
-						if (this.cubes[key].model.absolutePosition[axisName] < -0.5) {
-							this.rotationFunc(axisName, this.cubes[key].transform_node, rotation)
+					} else if (side == 'min') {
+						for (let key in this.cubes) {
+							if (this.cubes[key].model.absolutePosition[axisName] < -0.5) {
+								this.rotationFunc(axisName, this.cubes[key].transform_node, rotation)
+							}
 						}
 					}
 				}
